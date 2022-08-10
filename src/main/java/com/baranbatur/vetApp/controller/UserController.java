@@ -1,8 +1,9 @@
 package com.baranbatur.vetApp.controller;
 
+import com.baranbatur.vetApp.helper.UserValidator;
 import com.baranbatur.vetApp.model.User;
-import com.baranbatur.vetApp.service.ISecurityService;
-import com.baranbatur.vetApp.service.UserService;
+import com.baranbatur.vetApp.interfaces.ISecurityService;
+import com.baranbatur.vetApp.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private ISecurityService securityService;
+    private ISecurityService isecurityService;
 
     @Autowired
     private UserValidator userValidator;
@@ -25,8 +26,8 @@ public class UserController {
     @GetMapping("/registration")
     public String registration(Model model) {
 
-        if (securityService.isAuthenticated()) {
-            return "redirect:/";
+        if (isecurityService.isAuthenticated()) {
+            return "redirect:/home";
         }
 
         model.addAttribute("userForm", new User());
@@ -44,28 +45,26 @@ public class UserController {
 
         userService.save(userForm);
 
-        securityService.autologin(userForm.getUsername(), userForm.getPassword());
+        isecurityService.autologin(userForm.getUsername(), userForm.getPassword());
 
         return "redirect:/";
     }
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
-        if (securityService.isAuthenticated()) {
+        if (isecurityService.isAuthenticated()) {
             return "redirect:/";
         }
 
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+        if (error != null) model.addAttribute("error", "Your username and password is invalid.");
 
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+        if (logout != null) model.addAttribute("message", "You have been logged out successfully.");
 
         return "login";
     }
 
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model) {
-        return "welcome";
+        return "dashboard";
     }
 }

@@ -1,10 +1,9 @@
-package com.baranbatur.vetApp.controller;
+package com.baranbatur.vetApp.helper;
 
 import com.baranbatur.vetApp.model.User;
-import com.baranbatur.vetApp.service.UserService;
+import com.baranbatur.vetApp.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

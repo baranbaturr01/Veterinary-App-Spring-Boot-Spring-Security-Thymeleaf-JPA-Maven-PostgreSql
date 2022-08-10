@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <title>Create an account</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -13,7 +14,6 @@
         <form id="logoutForm" method="POST" th:action="@{/logout}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-
         <h2>Welcome <span onsecuritypolicyviolation=:authentication="name"></span> | <a
                 onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
     </div>

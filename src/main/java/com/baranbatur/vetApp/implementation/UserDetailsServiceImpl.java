@@ -1,4 +1,4 @@
-package com.baranbatur.vetApp.service;
+package com.baranbatur.vetApp.implementation;
 
 import com.baranbatur.vetApp.model.Role;
 import com.baranbatur.vetApp.model.User;

@@ -1,4 +1,4 @@
-package com.baranbatur.vetApp.service;
+package com.baranbatur.vetApp.interfaces;
 
 import com.baranbatur.vetApp.model.User;
 import com.baranbatur.vetApp.repository.IUserRepository;

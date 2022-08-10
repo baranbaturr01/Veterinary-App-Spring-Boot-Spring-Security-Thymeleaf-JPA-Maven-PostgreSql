@@ -46,3 +46,19 @@ body {
 .has-error {
     color: red
 }
+
+h1 {
+    color: #0000FF;
+}
+
+h2 {
+    color: #FF0000;
+}
+
+footer {
+    margin-top: 60px;
+}
+
+.pt-3 {
+    padding-top: 1rem !important;
+}

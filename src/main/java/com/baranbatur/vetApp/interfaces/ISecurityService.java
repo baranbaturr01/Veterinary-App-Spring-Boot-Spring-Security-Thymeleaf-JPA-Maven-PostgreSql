@@ -1,4 +1,4 @@
-package com.baranbatur.vetApp.service;
+package com.baranbatur.vetApp.interfaces;
 
 public interface ISecurityService {
     boolean isAuthenticated();
