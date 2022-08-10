@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: postgresql-spring
+    image: postgres:14.0
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - postgresql-network
+
+volumes:
+  postgres:
+
+networks:
+  postgresql-network:
