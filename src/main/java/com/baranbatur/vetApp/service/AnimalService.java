@@ -21,12 +21,8 @@ public class AnimalService {
 
     public boolean saveAnimal(Animal animal) {
 
-        if (animal.getId() == null) {
-            animalRepository.save(animal);
-            return true;
-        } else {
-            return false;
-        }
+        animalRepository.save(animal);
+        return true;
 
     }
 

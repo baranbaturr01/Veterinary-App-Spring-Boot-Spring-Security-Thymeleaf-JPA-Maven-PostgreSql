@@ -19,7 +19,7 @@ public class Animal {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "animal_owner_id", insertable = false, updatable = false)
+    @JoinColumn(name = "animal_owner_id")
     @Fetch(FetchMode.JOIN)
     private AnimalOwner animalOwner;
 
