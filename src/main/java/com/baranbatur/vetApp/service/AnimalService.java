@@ -19,8 +19,15 @@ public class AnimalService {
         return animalRepository.findById(id).get();
     }
 
-    public Animal saveAnimal(Animal animal) {
-        return animalRepository.save(animal);
+    public boolean saveAnimal(Animal animal) {
+
+        if (animal.getId() == null) {
+            animalRepository.save(animal);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     public void deleteAnimal(Long id) {

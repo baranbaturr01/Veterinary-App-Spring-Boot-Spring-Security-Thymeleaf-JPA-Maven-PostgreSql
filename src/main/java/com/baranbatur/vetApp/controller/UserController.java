@@ -1,9 +1,11 @@
 package com.baranbatur.vetApp.controller;
 
 import com.baranbatur.vetApp.helper.UserValidator;
+import com.baranbatur.vetApp.model.Animal;
 import com.baranbatur.vetApp.model.User;
 import com.baranbatur.vetApp.interfaces.ISecurityService;
 import com.baranbatur.vetApp.interfaces.UserService;
+import com.baranbatur.vetApp.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +29,7 @@ public class UserController {
     public String registration(Model model) {
 
         if (isecurityService.isAuthenticated()) {
-            return "redirect:/home";
+            return "redirect:/welcome";
         }
 
         model.addAttribute("userForm", new User());
@@ -47,13 +49,13 @@ public class UserController {
 
         isecurityService.autologin(userForm.getUsername(), userForm.getPassword());
 
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (isecurityService.isAuthenticated()) {
-            return "redirect:/";
+            return "redirect:/welcome";
         }
 
         if (error != null) model.addAttribute("error", "Your username and password is invalid.");
@@ -65,6 +67,6 @@ public class UserController {
 
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model) {
-        return "dashboard";
+        return "redirect:/add-animal";
     }
 }

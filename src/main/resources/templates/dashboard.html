@@ -1,98 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.1.1">
-    <title>Home Page</title>
+    <title>Ana Sayfa</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link href="/css/dashboard.css" rel="stylesheet">
-
 </head>
 <body>
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Veterinary App</a>
-    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
-            data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            <div onsecuritypolicyviolation="isAuthenticated()">
-                <form id="logoutForm" method="POST" th:action="@{/logout}">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                </form>
-                <span onsecuritypolicyviolation=:authentication="name"></span>
-                <a class="nav-link" onclick="document.forms['logoutForm'].submit()">Logout</a>
-            </div>
+
+<div class="container">
+    <hr class="border-primary">
+    <h2 class="justify-content-center text-center border border-primary">HOŞ GELDİNİZ</h2>
+    <hr class="border-primary">
+    <ul class="nav nav-tabs align-items-center" id="myTab" role="tablist">
+        <li class="nav-item active " role="presentation">
+            <a class="nav-item  btn btn-outline-primary" id="home-tab" data-toggle="tab" href="#home" role="tab"
+               aria-controls="home"
+               aria-selected="true">Add Animal</a>
         </li>
+        <li class="nav-item m-xl-2" role="presentation">
+            <a class="nav-item btn btn-outline-primary" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+               aria-controls="profile"
+               aria-selected="false">List Animal</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a th:href="@{/add-owner}" class="nav-item btn btn-outline-primary"
+            >Add Owner</a>
+        </li>
+
+
     </ul>
-</nav>
-<div class="container-fluid">
-    <div class="row">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div class="sidebar-sticky pt-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <span data-feather="home"></span>
-                            Add Animal <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file"></span>
-                            Add Owner Animal
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="shopping-cart"></span>
-                            List Animals
-                        </a>
-                    </li>
-                </ul>
 
-            </div>
-        </nav>
+    <div class="tab-content " id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card border border-primary rounded-lg">
+                        <div class="card-body">
+                            <form th:action="@{/add-animal}" th:object="${animalForm}" method="POST">
+                                <div class="form-group">
+                                    <label for="animalName">Animal Name</label>
+                                    <input type="text" th:field="*{name}" class="form-control" id="animalName"
+                                           name="animalName"
+                                           placeholder="Enter Animal Name">
+                                </div>
+                                choose owner
+                                <!--                                <div class="form-group">-->
+                                <!--                                    <label for="ownerName">Owner Name</label>-->
+                                <!--                                    <select th:field="*{animalOwner}" class="form-control" id="ownerName"-->
+                                <!--                                            name="ownerName">-->
+                                <!--                                        <option th:each="${owner}" th:value="${owner.id}">${owner.name}</option>-->
+                                <!--                                    </select>-->
+                                <!--                                </div>-->
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Add Animal Form</h1>
-            </div>
-            <div class="container">
-                <form class="form-signin" method="POST" th:action="@{/add-animal}">
-                    <div class="form-group">
-                        <span>Type</span>
-                        <input name="type" type="text" class="form-control" placeholder="type"
-                               autofocus="true"/>
-                        <span>Genus</span>
+                                <div class="form-group">
+                                    <label for="animalType">Animal Type</label>
+                                    <input type="text" th:field="*{type}" class="form-control" id="animalType"
+                                           name="animalType"
+                                           placeholder="Enter Animal Type">
+                                </div>
+                                <div class="form-group">
+                                    <label for="animalAge">Animal Age</label>
+                                    <input type="text" th:field="*{age}" class="form-control" id="animalAge"
+                                           name="animalAge"
+                                           placeholder="Enter Animal Age">
+                                </div>
+                                <div class="form-group">
+                                    <label for="animalAge">Animal Genus</label>
+                                    <input type="text" th:field="*{genus}" class="form-control" id="animalGenus"
+                                           name="animalGenus"
+                                           placeholder="Enter Animal Genus">
+                                </div>
+                                <div class="form-group">
+                                    <label for="animalAge">Animal Description</label>
 
-                        <input name="genus" type="text" class="form-control" placeholder="genus"/>
-                        <span>Name</span>
+                                    <input type="text" th:field="*{description}" class="form-control"
+                                           id="animalDesc"
+                                           name="animalDesc"
+                                           placeholder="Enter Animal Desc">
+                                </div>
 
-                        <input name="name" type="text" class="form-control" placeholder="name"/>
-                        <span>Age</span>
-                        <input name="age" type="text" class="form-control" placeholder="age"/>
-                        <span>Description</span>
-                        <textarea name="description" class="form-control" rows="3"></textarea>
-
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </main>
+
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
     </div>
 </div>
-</body>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -103,4 +102,5 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
 <script src="/js/main.js"></script>
+</body>
 </html>
