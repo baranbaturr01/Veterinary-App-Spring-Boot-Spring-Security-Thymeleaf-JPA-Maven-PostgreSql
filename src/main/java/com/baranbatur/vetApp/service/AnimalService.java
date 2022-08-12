@@ -3,7 +3,9 @@ package com.baranbatur.vetApp.service;
 import com.baranbatur.vetApp.model.Animal;
 import com.baranbatur.vetApp.repository.IAnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.persistence.JoinTable;
 import java.util.ArrayList;
@@ -34,8 +36,14 @@ public class AnimalService {
         return animalRepository.save(animal);
     }
 
-    public List<Animal> getAllAnimals() {
-        return new ArrayList<>(animalRepository.findAll());
+    public List<Animal> getAllAnimals(String keyword) {
+        if (keyword != null) {
+            return new ArrayList<>(animalRepository.search(keyword));
+        } else {
+            return new ArrayList<>(animalRepository.findAll());
+        }
+
     }
+
 
 }

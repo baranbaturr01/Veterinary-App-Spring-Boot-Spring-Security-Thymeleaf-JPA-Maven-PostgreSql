@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Ana Sayfa</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-</head>
 <body>
 <hr class="w-25 border-danger">
 
-<h2 class="justify-content-center text-center">HOŞ GELDİNGİZ</h2>
+<h2 class="justify-content-center text-center">WELCOME</h2>
 <hr class="w-25 border-danger">
 <div class="container bor">
     <ul class="nav nav-tabs active  align-self-auto" id="myTab" role="tablist">
@@ -27,7 +21,15 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
+                            <form th:action="@{/search}" class=" form-inline justify-content-end mb-3">
+                                <input th:value="${keyword}"
+                                       class="form-control mr-sm-2 border-success" type="text" name="keyword"
+                                       id="keyword"
+                                       placeholder="Search Animal Or Owner"
+                                       aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 
+                            </form>
                             <table class="table table-bordered">
                                 <thead class="thead-dark">
                                 <th>ID</th>
@@ -37,29 +39,65 @@
                                 <th>Age</th>
                                 <th>Genus</th>
                                 <th>Description</th>
+                                <th>Actions</th>
                                 </thead>
                                 <tbody>
 
-                                <th:block th:each="animal: ${listAnimal2s}">
-                                    <tr>
-                                        <td>[[${animal.id}]]</td>
-                                        <td>[[${animal.name}]]</td>
-                                        <td>[[${animal.animalOwner.name}]]</td>
-                                        <td>[[${animal.type}]]</td>
-                                        <td>[[${animal.age}]]</td>
-                                        <td>[[${animal.genus}]]</td>
-                                        <td>[[${animal.description}]]</td>
-                                        <td>
-                                            <a th:href="@{'/animal/edit/' + ${animal.id}}">
-                                                Edit
-                                            </a>
-                                            &nbsp;
-                                            <a th:href="@{'/animal/delete/' + ${animal.id}}">
-                                                Delete
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </th:block>
+                                <tr th:each="animal: ${listAnimal2s}">
+                                    <td>[[${animal.id}]]</td>
+                                    <td>[[${animal.name}]]</td>
+                                    <td>[[${animal.animalOwner.name}]]</td>
+                                    <td>[[${animal.type}]]</td>
+                                    <td>[[${animal.age}]]</td>
+                                    <td>[[${animal.genus}]]</td>
+                                    <td>[[${animal.description}]]</td>
+                                    <td>
+                                        <a th:href="@{'/animal/edit/' + ${animal.id}}">
+                                            Edit
+                                        </a>
+                                        &nbsp;|
+                                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                data-target="#deleteModal">
+                                            Delete Animal
+                                        </button>
+
+                                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+                                             aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteModalLabel">Are You Sure For
+                                                            Delete ?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                        <a th:href="@{'/animal/delete/' + ${animal.id}}">
+                                                            <button
+                                                                    type="button" class="btn btn-danger">Delete
+                                                            </button>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        &nbsp;|
+
+                                        <a th:href="@{'/animal-detail/' + ${animal.id}}" data-target="#show">
+                                            <button type="button" class="btn btn-primary">Show Owner Detail</button>
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
                                 </tbody>
 
                             </table>
@@ -67,13 +105,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-    <!--    back button-->
-    <a th:href="@{/add-animal}">
-        <button type="button" class="btn btn-danger">Back</button>
-    </a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -87,4 +120,10 @@
         crossorigin="anonymous"></script>
 <script src="/js/main.js"></script>
 </body>
+<head>
+    <meta charset="UTF-8">
+    <title>LIST OF ANIMALS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
 </html>
