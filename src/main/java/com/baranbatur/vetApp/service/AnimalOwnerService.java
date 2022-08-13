@@ -18,22 +18,14 @@ public class AnimalOwnerService {
     }
 
     public boolean saveAnimalOwner(AnimalOwner animalOwner) {
-
-        if (animalOwner.getId() == null) {
-            animalOwnerRepository.save(animalOwner);
-            return true;
-        } else {
-            return false;
-        }
+        animalOwnerRepository.save(animalOwner);
+        return true;
     }
 
     public void deleteAnimalOwner(Long id) {
         animalOwnerRepository.deleteById(id);
     }
 
-    public AnimalOwner updateAnimalOwner(AnimalOwner animalOwner) {
-        return animalOwnerRepository.save(animalOwner);
-    }
 
     public List<AnimalOwner> getAllAnimalOwners() {
         return new ArrayList<>(animalOwnerRepository.findAll());

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>LIST OF ANIMALS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <hr class="border-primary">
+    <h2 class="justify-content-center text-center border border-primary">WELCOME</h2>
+    <hr class="border-primary">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title ">Owner Animals</h5>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Genus</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--for-->
+                        <tr th:each="animal:${ownerAnimals}">
+                            <td>[[${animal.id}]]</td>
+                            <td>[[${animal.type}]]</td>
+                            <td>[[${animal.genus}]]</td>
+                            <td>[[${animal.name}]]</td>
+                            <td>[[${animal.age}]]</td>
+                            <td>[[${animal.description}]]</td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <a th:href="@{/get-all-owners}">
+            <button type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+                Back
+            </button>
+
+        </a>
+    </div>
+</div>
+</body>
+</html>

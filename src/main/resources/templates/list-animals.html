@@ -53,7 +53,10 @@
                                     <td>[[${animal.description}]]</td>
                                     <td>
                                         <a th:href="@{'/animal/edit/' + ${animal.id}}">
-                                            Edit
+                                            <button type="button" class="btn btn-success">
+                                                Edit
+                                            </button>
+
                                         </a>
                                         &nbsp;|
                                         <button type="button" class="btn btn-danger" data-toggle="modal"
@@ -107,6 +110,10 @@
             </div>
         </div>
     </div>
+    <!--    back button-->
+    <a th:href="@{'/'}">
+        <button type="button" class="btn btn-danger">Back</button>
+    </a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

@@ -1,15 +1,20 @@
 package com.baranbatur.vetApp.controller;
 
+import com.baranbatur.vetApp.model.Animal;
 import com.baranbatur.vetApp.model.AnimalOwner;
 import com.baranbatur.vetApp.service.AnimalOwnerService;
+import com.baranbatur.vetApp.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 public class OwnerController {
@@ -17,31 +22,51 @@ public class OwnerController {
     @Autowired
     private AnimalOwnerService animalOwnerService;
 
-    @GetMapping("/owner-all")
-    public HashMap<String, Object> getAllAnimalOwners() {
-        HashMap<String, Object> response = new HashMap<>();
-        response.put("animalOwners", animalOwnerService.getAllAnimalOwners());
-        return response;
+    @Autowired
+    private AnimalService animalService;
+
+    @GetMapping("/get-all-owners")
+    public String getAllAnimalOwners(Model model) {
+        model.addAttribute("animalOwners", animalOwnerService.getAllAnimalOwners());
+        return "list-owners";
     }
 
 
     @GetMapping("/add-owner")
-    public String addOwner2(Model model) {
+    public String addOwner(Model model) {
         model.addAttribute("ownerForm", new AnimalOwner());
         return "create-owner";
     }
 
     @PostMapping("/add-owner")
-    public String addOwner(@ModelAttribute("ownerForm") AnimalOwner owner, Model model) {
+    public String addOwner(@ModelAttribute("ownerForm") AnimalOwner owner, BindingResult result, Model model) {
         System.out.println(owner.getName());
-        boolean response = animalOwnerService.saveAnimalOwner(owner);
-        if (response) {
-            model.addAttribute("success", "Owner added successfully");
-            return "redirect:/add-owner";
+        if (result.hasErrors()) {
+            return "create-owner";
         } else {
-            model.addAttribute("error", "Owner not added");
-            return "redirect:/add-owner";
+            animalOwnerService.saveAnimalOwner(owner);
+            return "redirect:/get-all-owners";
         }
+    }
+
+    @GetMapping("/owner/edit/{id}")
+    public String editOwner(@PathVariable("id") Long id, Model model) {
+        AnimalOwner owner = animalOwnerService.getAnimalOwnerById(id);
+        model.addAttribute("ownerForm", owner);
+        return "create-owner";
+    }
+
+    @GetMapping("/owner/delete/{id}")
+    public String deleteOwner(@PathVariable("id") Long id, Model model) {
+        animalOwnerService.deleteAnimalOwner(id);
+        return "redirect:/get-all-owners";
+    }
+
+    @GetMapping("/owner/{id}")
+    public String getOwnerAnimalsByOwnerId(@PathVariable("id") Long id, Model model) {
+        List<Animal> animals = animalService.getAnimalsByOwnerId(id);
+        model.addAttribute("ownerAnimals", animals);
+        return "list-of-owner-animals";
     }
 
 }

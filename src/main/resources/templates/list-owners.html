@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<hr class="w-25 border-danger">
+
+<h2 class="justify-content-center text-center">WELCOME</h2>
+<hr class="w-25 border-danger">
+<div class="container bor">
+    <ul class="nav nav-tabs active  align-self-auto" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link align-items-center text-dark" id="profile-tab" data-toggle="tab" href="#profile"
+               role="tab" aria-controls="profile"
+               aria-selected="true">List Owners </a>
+        </li>
+    </ul>
+</div>
+<div class="container">
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead class="thead-dark">
+
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>SURNAME</th>
+                                <th>PHONE NUMBER</th>
+                                <th>EMAİL</th>
+                                <th>ACTIONS</th>
+
+                                </thead>
+                                <tbody>
+
+                                <tr th:each="owner: ${animalOwners}">
+                                    <td>[[${owner.id}]]</td>
+                                    <td>[[${owner.name}]]</td>
+                                    <td>[[${owner.surname}]]</td>
+                                    <td>[[${owner.phoneNumber}]]</td>
+                                    <td>[[${owner.email}]]</td>
+                                    <td>
+                                        <a th:href="@{'/owner/edit/' + ${owner.id}}">
+                                            <button type="button" class="btn btn-success">Edit</button>
+                                        </a>
+                                        &nbsp;|
+
+                                        <a th:href="@{'/owner/' + ${owner.id}}" data-target="#show">
+                                            <button type="button" class="btn btn-primary">Show Owner Animals</button>
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    back button-->
+    <a th:href="@{'/'}">
+        <button type="button" class="btn btn-danger">Back</button>
+    </a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+<script src="/js/main.js"></script>
+</body>
+<head>
+    <meta charset="UTF-8">
+    <title>LIST OF OWNERS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+</html>

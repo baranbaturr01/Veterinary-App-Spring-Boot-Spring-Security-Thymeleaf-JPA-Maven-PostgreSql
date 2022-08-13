@@ -13,4 +13,8 @@ public interface IAnimalRepository extends JpaRepository<Animal, Long> {
 
     @Query(value = "SELECT a FROM Animal a WHERE a.name like %?1%  OR  a.animalOwner.name LIKE %?1%")
     List<Animal> search(String keyword);
+
+    Animal findByName(String name);
+
+    List<Animal> findByAnimalOwnerId(Long id);
 }

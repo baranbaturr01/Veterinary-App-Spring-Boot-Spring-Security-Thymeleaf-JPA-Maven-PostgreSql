@@ -1,16 +1,17 @@
 package com.baranbatur.vetApp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "animal")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Animal {
@@ -32,6 +33,7 @@ public class Animal {
     @Column(name = "name")
     private String name;
 
+    //must be number
     @Column(name = "age")
     private Integer age;
 

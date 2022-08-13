@@ -10,7 +10,18 @@
 
 <div class="container">
     <hr class="border-primary">
-    <h2 class="justify-content-center text-center border border-primary">WELCOME</h2>
+
+    <h2 class=" text-center border border-primary">WELCOME
+        <div onsecuritypolicyviolation="isAuthenticated()">
+            <form id="logoutForm" method="POST" th:action="@{/logout}">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+            <span onsecuritypolicyviolation=:authentication="name"></span>
+            <a class="justify-content-center" onclick="document.forms['logoutForm'].submit()">
+                <button type="button" class="btn btn-outline-danger">Logout</button>
+            </a>
+        </div>
+    </h2>
     <hr class="border-primary">
     <ul class="nav nav-tabs align-items-center" id="myTab" role="tablist">
         <li class="nav-item active " role="presentation">
@@ -28,9 +39,14 @@
             >List Animals</a>
         </li>
 
-        <li class="nav-item" role="presentation">
+        <li class="nav-item m-xl-2" role="presentation">
             <a th:href="@{/add-owner}" class="nav-item btn btn-outline-primary"
             >Add Owner</a>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <a th:href="@{/get-all-owners}" class="nav-item btn btn-outline-primary"
+            >List Owner</a>
         </li>
 
 
@@ -49,6 +65,8 @@
                                     <input type="text" th:field="*{name}" class="form-control" id="animalName"
                                            name="animalName"
                                            placeholder="Enter Animal Name">
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}"
+                                       th:errors="*{name}"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="ownerName">Owner Name</label>
@@ -58,6 +76,8 @@
                                             <option th:text="${owner.name}" th:value="${owner.id}"/>
                                         </th:block>
                                     </select>
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('animalOwner')}"
+                                       th:errors="*{animalOwner}"></p>
                                 </div>
 
                                 <div class="form-group">
@@ -65,18 +85,24 @@
                                     <input type="text" th:field="*{type}" class="form-control" id="animalType"
                                            name="animalType"
                                            placeholder="Enter Animal Type">
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('type')}"
+                                       th:errors="*{type}"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="animalAge">Animal Age</label>
                                     <input type="text" th:field="*{age}" class="form-control" id="animalAge"
                                            name="animalAge"
                                            placeholder="Enter Animal Age">
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('age')}"
+                                       th:errors="*{age}"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="animalAge">Animal Genus</label>
                                     <input type="text" th:field="*{genus}" class="form-control" id="animalGenus"
                                            name="animalGenus"
                                            placeholder="Enter Animal Genus">
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('genus')}"
+                                       th:errors="*{genus}"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="animalAge">Animal Description</label>
@@ -85,6 +111,8 @@
                                            id="animalDesc"
                                            name="animalDesc"
                                            placeholder="Enter Animal Desc">
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('description')}"
+                                       th:errors="*{description}"></p>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -96,7 +124,9 @@
 
         </div>
     </div>
+
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

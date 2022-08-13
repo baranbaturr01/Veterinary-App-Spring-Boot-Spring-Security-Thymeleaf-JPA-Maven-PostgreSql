@@ -1,5 +1,6 @@
 package com.baranbatur.vetApp;
 
+import com.baranbatur.vetApp.implementation.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/css/**", "/js/**", "/registration", "/add-animal", "/all", "/add-owner").permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
+        http.authorizeRequests().antMatchers("/css/**", "/js/**", "/registration").permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
     }
 
     @Bean
@@ -36,6 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+//        auth.inMemoryAuthentication().withUser("").password(bCryptPasswordEncoder().encode("user")).roles("USER");
+//        auth.inMemoryAuthentication().withUser("admin").password(bCryptPasswordEncoder().encode("admin")).roles("ADMIN");
+
     }
 }

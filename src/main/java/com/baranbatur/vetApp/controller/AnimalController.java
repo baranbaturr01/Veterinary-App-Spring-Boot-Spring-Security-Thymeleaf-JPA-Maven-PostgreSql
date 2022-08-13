@@ -1,8 +1,8 @@
 package com.baranbatur.vetApp.controller;
 
+import com.baranbatur.vetApp.helper.AnimalValidator;
 import com.baranbatur.vetApp.model.Animal;
 import com.baranbatur.vetApp.model.AnimalOwner;
-import com.baranbatur.vetApp.repository.IAnimalRepository;
 import com.baranbatur.vetApp.service.AnimalOwnerService;
 import com.baranbatur.vetApp.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +10,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,6 +29,9 @@ public class AnimalController {
 
     @Autowired
     AnimalOwnerService animalOwnerService;
+
+    @Autowired
+    AnimalValidator animalValidator;
 
     @GetMapping({"/list-all-animals", "/search"})
     public String getAllAnimals(Model model, @Param("keyword") String keyword) {
@@ -48,20 +54,19 @@ public class AnimalController {
     }
 
     @PostMapping("/add-animal")
-    public String addAnimal(@ModelAttribute("animalForm") Animal animal, Model model) {
-        System.out.println(animal.getName());
-        boolean response = animalService.saveAnimal(animal);
-        if (response) {
-            model.addAttribute("success", "Animal added successfully");
-            return "redirect:/list-all-animals";
-        } else {
-            model.addAttribute("error", "Animal not added");
-            return "redirect:/list-all-animals";
+    public String addAnimal(@ModelAttribute("animalForm") Animal animal, BindingResult result, Model model) {
+
+        animalValidator.validate(animal, result);
+        if (result.hasErrors()) {
+            return "dashboard";
         }
+        boolean response = animalService.saveAnimal(animal);
+
+        return "redirect:/add-animal";
     }
 
     @GetMapping("/animal/edit/{id}")
-    public String editAnimal(@PathVariable("id") Long id, Model model) {
+    public String editAnimal(@Valid @PathVariable("id") Long id, Model model) {
 
         Animal animal = animalService.getAnimalById(id);
         model.addAttribute("animalForm", animal);
