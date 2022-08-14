@@ -43,5 +43,6 @@ Veterinary App
 
 - Yetkilendirme için RBAC methodunu kullandım
 
-- ER Diagram
-    - ![alt text] (../resources/screenshots/er-diagram.png)
+- ER Diagram:
+
+    - ![](src/main/resources/static/screenshots/er-diagram.png)
