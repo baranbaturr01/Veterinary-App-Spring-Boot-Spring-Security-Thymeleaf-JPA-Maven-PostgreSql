@@ -26,7 +26,7 @@ public class AnimalValidator implements Validator {
         Animal animal = (Animal) target;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
-        if (animal.getName().length() < 6 || animal.getName().length() > 32) {
+        if (animal.getName().length() < 2 || animal.getName().length() > 32) {
             errors.rejectValue("name", "Size.animalForm.name");
         }
 
@@ -35,9 +35,11 @@ public class AnimalValidator implements Validator {
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type", "NotEmpty");
-        if (animal.getType().length() < 6 || animal.getType().length() > 32) {
+        if (animal.getType().length() < 2 || animal.getType().length() > 32) {
             errors.rejectValue("type", "Size.animalForm.type");
         }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "age", "NotEmpty");
 
     }
 }

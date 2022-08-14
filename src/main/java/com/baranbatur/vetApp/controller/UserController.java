@@ -2,9 +2,11 @@ package com.baranbatur.vetApp.controller;
 
 import com.baranbatur.vetApp.helper.UserValidator;
 import com.baranbatur.vetApp.model.Animal;
+import com.baranbatur.vetApp.model.Role;
 import com.baranbatur.vetApp.model.User;
 import com.baranbatur.vetApp.interfaces.ISecurityService;
 import com.baranbatur.vetApp.interfaces.UserService;
+import com.baranbatur.vetApp.repository.IRoleRepository;
 import com.baranbatur.vetApp.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +16,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private IRoleRepository roleRepository;
 
     @Autowired
     private ISecurityService isecurityService;
@@ -32,6 +39,8 @@ public class UserController {
             return "redirect:/welcome";
         }
 
+        List<Role> roles = roleRepository.findAll();
+        model.addAttribute("role2s", roles);
         model.addAttribute("userForm", new User());
 
         return "registration";
@@ -41,12 +50,15 @@ public class UserController {
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
         userValidator.validate(userForm, bindingResult);
 
+        System.out.println(userForm.getRoles());
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-
-        userService.save(userForm);
-
+        User user = new User();
+        user.setUsername(userForm.getUsername());
+        user.setPassword(userForm.getPassword());
+        userForm.setRoles(userForm.getRoles());
+        userService.save(user);
         isecurityService.autologin(userForm.getUsername(), userForm.getPassword());
 
         return "redirect:/login";
@@ -64,6 +76,7 @@ public class UserController {
 
         return "login";
     }
+
 
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model) {

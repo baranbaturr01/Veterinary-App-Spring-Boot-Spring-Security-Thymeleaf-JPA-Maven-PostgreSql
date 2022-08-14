@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Ana Sayfa</title>
@@ -10,17 +10,17 @@
 
 <div class="container">
     <hr class="border-primary">
-
-    <h2 class=" text-center border border-primary">WELCOME
-        <div onsecuritypolicyviolation="isAuthenticated()">
+    <div sec:authorize="isAuthenticated()">
+        <h2 class=" text-center border border-primary">WELCOME
             <form id="logoutForm" method="POST" th:action="@{/logout}">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>
-            <span onsecuritypolicyviolation=:authentication="name"></span>
+            <span sec:authentication="name">Username</span>
+            <span sec:authentication="principal.authorities">Roles</span>
             <a class="justify-content-center" onclick="document.forms['logoutForm'].submit()">
                 <button type="button" class="btn btn-outline-danger">Logout</button>
             </a>
-        </div>
+    </div>
     </h2>
     <hr class="border-primary">
     <ul class="nav nav-tabs align-items-center" id="myTab" role="tablist">

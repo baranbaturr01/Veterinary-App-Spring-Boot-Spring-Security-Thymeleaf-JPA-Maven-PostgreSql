@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +23,16 @@ public class Role {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Role(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }
