@@ -19,16 +19,4 @@ public class RoleRepositoryTest {
     @Autowired
     IRoleRepository roleRepository;
 
-    @Test
-    public void TestCreateRoles() {
-
-
-        Role user = new Role("User");
-        Role admin = new Role("Admin");
-
-        roleRepository.saveAll(List.of(user, admin));
-        List<Role> roles = roleRepository.findAll();
-        Assertions.assertThat(roles.size()).isEqualTo(2);
-
-    }
 }
