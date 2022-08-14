@@ -54,11 +54,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        User user = new User();
-        user.setUsername(userForm.getUsername());
-        user.setPassword(userForm.getPassword());
-        userForm.setRoles(userForm.getRoles());
-        userService.save(user);
+        userService.save(userForm);
         isecurityService.autologin(userForm.getUsername(), userForm.getPassword());
 
         return "redirect:/login";
