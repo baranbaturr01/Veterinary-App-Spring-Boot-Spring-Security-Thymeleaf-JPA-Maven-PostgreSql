@@ -1,13 +1,11 @@
 package com.baranbatur.vetApp.controller;
 
-import com.baranbatur.vetApp.helper.UserValidator;
-import com.baranbatur.vetApp.model.Animal;
+import com.baranbatur.vetApp.validator.UserValidator;
 import com.baranbatur.vetApp.model.Role;
 import com.baranbatur.vetApp.model.User;
 import com.baranbatur.vetApp.interfaces.ISecurityService;
 import com.baranbatur.vetApp.interfaces.UserService;
 import com.baranbatur.vetApp.repository.IRoleRepository;
-import com.baranbatur.vetApp.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,11 +33,15 @@ public class UserController {
     @GetMapping("/registration")
     public String registration(Model model) {
 
+        List<Role> roles = roleRepository.findAll();
+
         if (isecurityService.isAuthenticated()) {
+
+            model.addAttribute("role2s", roles);
+
             return "redirect:/welcome";
         }
 
-        List<Role> roles = roleRepository.findAll();
         model.addAttribute("role2s", roles);
         model.addAttribute("userForm", new User());
 
@@ -48,10 +50,13 @@ public class UserController {
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+
         userValidator.validate(userForm, bindingResult);
+        List<Role> roles = roleRepository.findAll();
 
         System.out.println(userForm.getRoles());
         if (bindingResult.hasErrors()) {
+            model.addAttribute("role2s", roles);
             return "registration";
         }
         userService.save(userForm);

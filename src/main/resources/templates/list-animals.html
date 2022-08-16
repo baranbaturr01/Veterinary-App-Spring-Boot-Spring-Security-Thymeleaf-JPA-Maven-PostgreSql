@@ -50,7 +50,7 @@
                                     <td>[[${animal.type}]]</td>
                                     <td>[[${animal.age}]]</td>
                                     <td>[[${animal.genus}]]</td>
-                                    <td>[[${animal.description}]]</td>
+                                    <td style="width: 155px">[[${animal.description}]]</td>
                                     <td>
                                         <a th:href="@{'/animal/edit/' + ${animal.id}}">
                                             <button type="button" class="btn btn-success">
@@ -58,7 +58,6 @@
                                             </button>
 
                                         </a>
-                                        &nbsp;|
                                         <button type="button" class="btn btn-danger" data-toggle="modal"
                                                 data-target="#deleteModal">
                                             Delete Animal
@@ -90,8 +89,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        &nbsp;|
 
                                         <a th:href="@{'/animal-detail/' + ${animal.id}}" data-target="#show">
                                             <button type="button" class="btn btn-primary">Show Owner Detail</button>

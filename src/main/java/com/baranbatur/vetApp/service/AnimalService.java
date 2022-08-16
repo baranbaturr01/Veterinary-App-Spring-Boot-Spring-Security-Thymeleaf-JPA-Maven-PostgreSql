@@ -32,11 +32,9 @@ public class AnimalService {
         animalRepository.deleteById(id);
     }
 
-    public Animal updateAnimal(Animal animal) {
-        return animalRepository.save(animal);
-    }
 
     public List<Animal> getAllAnimals(String keyword) {
+        
         if (keyword != null) {
             return new ArrayList<>(animalRepository.search(keyword));
         } else {
@@ -45,11 +43,6 @@ public class AnimalService {
 
     }
 
-    public Animal findByName(String name) {
-
-        return animalRepository.findByName(name);
-
-    }
 
     public List<Animal> getAnimalsByOwnerId(Long id) {
         return animalRepository.findByAnimalOwnerId(id);

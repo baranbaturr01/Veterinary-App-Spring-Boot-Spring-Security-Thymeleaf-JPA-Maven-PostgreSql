@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="animalAge">Animal Age</label>
-                                    <input type="text" th:field="*{age}" class="form-control" id="animalAge"
+                                    <input type="number" th:field="*{age}" class="form-control" id="animalAge"
                                            name="animalAge"
                                            placeholder="Enter Animal Age">
                                     <p class="alert alert-danger" th:if="${#fields.hasErrors('age')}"

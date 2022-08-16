@@ -1,6 +1,6 @@
 package com.baranbatur.vetApp.controller;
 
-import com.baranbatur.vetApp.helper.AnimalValidator;
+import com.baranbatur.vetApp.validator.AnimalValidator;
 import com.baranbatur.vetApp.model.Animal;
 import com.baranbatur.vetApp.model.AnimalOwner;
 import com.baranbatur.vetApp.service.AnimalOwnerService;
@@ -10,15 +10,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -35,7 +32,6 @@ public class AnimalController {
 
     @GetMapping({"/list-all-animals", "/search"})
     public String getAllAnimals(Model model, @Param("keyword") String keyword) {
-        System.out.println("keyword: " + keyword);
         List<Animal> animals = animalService.getAllAnimals(keyword);
         model.addAttribute("listAnimal2s", animals);
         model.addAttribute("keyword", keyword);
@@ -55,14 +51,15 @@ public class AnimalController {
 
     @PostMapping("/add-animal")
     public String addAnimal(@ModelAttribute("animalForm") Animal animal, BindingResult result, Model model) {
-
+        List<AnimalOwner> animalOwnerList = animalOwnerService.getAllAnimalOwners();
         animalValidator.validate(animal, result);
         if (result.hasErrors()) {
+            model.addAttribute("animalOwnerList", animalOwnerList);
             return "dashboard";
         }
         boolean response = animalService.saveAnimal(animal);
 
-        return "redirect:/add-animal";
+        return "redirect:/list-all-animals";
     }
 
     @GetMapping("/animal/edit/{id}")

@@ -4,6 +4,7 @@ import com.baranbatur.vetApp.model.Animal;
 import com.baranbatur.vetApp.model.AnimalOwner;
 import com.baranbatur.vetApp.service.AnimalOwnerService;
 import com.baranbatur.vetApp.service.AnimalService;
+import com.baranbatur.vetApp.validator.OwnerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,9 @@ public class OwnerController {
     @Autowired
     private AnimalService animalService;
 
+    @Autowired
+    private OwnerValidator ownerValidator;
+
     @GetMapping("/get-all-owners")
     public String getAllAnimalOwners(Model model) {
         model.addAttribute("animalOwners", animalOwnerService.getAllAnimalOwners());
@@ -40,7 +44,7 @@ public class OwnerController {
 
     @PostMapping("/add-owner")
     public String addOwner(@ModelAttribute("ownerForm") AnimalOwner owner, BindingResult result, Model model) {
-        System.out.println(owner.getName());
+        ownerValidator.validate(owner, result);
         if (result.hasErrors()) {
             return "create-owner";
         } else {

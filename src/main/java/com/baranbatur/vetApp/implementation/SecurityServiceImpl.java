@@ -1,6 +1,7 @@
 package com.baranbatur.vetApp.implementation;
 
 import com.baranbatur.vetApp.interfaces.ISecurityService;
+import com.baranbatur.vetApp.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;

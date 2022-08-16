@@ -11,10 +11,9 @@ import java.util.List;
 @Repository
 public interface IAnimalRepository extends JpaRepository<Animal, Long> {
 
-    @Query(value = "SELECT a FROM Animal a WHERE a.name like %?1%  OR  a.animalOwner.name LIKE %?1%")
-    List<Animal> search(String keyword);
 
-    Animal findByName(String name);
+    @Query("SELECT a FROM Animal a WHERE lower( a.name) LIKE lower( CONCAT('%',:keyword,'%'))or lower( a.animalOwner.name) LIKE lower( CONCAT('%',:keyword,'%'))")
+    List<Animal> search(String keyword);
 
     List<Animal> findByAnimalOwnerId(Long id);
 }

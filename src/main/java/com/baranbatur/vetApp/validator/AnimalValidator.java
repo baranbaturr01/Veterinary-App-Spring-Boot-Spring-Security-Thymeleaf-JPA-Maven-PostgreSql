@@ -1,9 +1,8 @@
-package com.baranbatur.vetApp.helper;
+package com.baranbatur.vetApp.validator;
 
 import com.baranbatur.vetApp.model.Animal;
 import com.baranbatur.vetApp.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -30,16 +29,18 @@ public class AnimalValidator implements Validator {
             errors.rejectValue("name", "Size.animalForm.name");
         }
 
-        if (animalService.findByName(animal.getName()) != null) {
-            errors.rejectValue("name", "Duplicate.animalForm.name");
-        }
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type", "NotEmpty");
         if (animal.getType().length() < 2 || animal.getType().length() > 32) {
             errors.rejectValue("type", "Size.animalForm.type");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "age", "NotEmpty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "animalOwner", "NotEmpty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "genus", "NotEmpty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "NotEmpty");
 
     }
 }

@@ -38,24 +38,32 @@
                                     <input type="text" th:field="*{name}" class="form-control" id="ownerNameForm"
                                            name="ownerName"
                                            placeholder="Enter Owner Name">
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}"
+                                       th:errors="*{name}"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="ownerSurname">Owner Surname</label>
                                     <input type="text" th:field="*{surname}" class="form-control" id="ownerSurname"
                                            name="ownerSurname"
                                            placeholder="Enter Owner Surname">
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('surname')}"
+                                       th:errors="*{surname}"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="ownerEmail">Owner Email</label>
                                     <input type="text" th:field="*{email}" class="form-control" id="ownerEmail"
                                            name="ownerEmail"
                                            placeholder="Enter Owner Email">
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('email')}"
+                                       th:errors="*{email}"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="ownerPhone">Owner Phone</label>
                                     <input type="text" th:field="*{phoneNumber}" class="form-control" id="ownerPhone"
                                            name="ownerPhone"
                                            placeholder="Enter Owner Phone">
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('phoneNumber')}"
+                                       th:errors="*{phoneNumber}"></p>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 <!--                                add back button-->

@@ -1,4 +1,4 @@
-package com.baranbatur.vetApp.helper;
+package com.baranbatur.vetApp.validator;
 
 import com.baranbatur.vetApp.model.User;
 import com.baranbatur.vetApp.interfaces.UserService;
@@ -38,5 +38,8 @@ public class UserValidator implements Validator {
         if (user.getPassword().length() < 3 || user.getPassword().length() > 32) {
             errors.rejectValue("password", "Size.userForm.password");
         }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "roles", "NotEmpty");
+
     }
 }

@@ -31,6 +31,7 @@ Veterinary App
 - Hibernate (for connection)
 - Postgresql
 - Maven
+- Lombok
 
 ## Proje Hakkında
 
